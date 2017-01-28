@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animal sounds</title>
+</head>
+<body>
+  <style>
+    body {
+      display: flex;
+      /*max-width: 100%;*/
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      /*align-items: center;*/
+      justify-content: center;
+      /*background-color: black;*/
+      flex-direction: column;
+      background: black url(./img/bg.jpg) 0 0 repeat;
+    }
+    header,
+    main,
+    footer {
+      flex-grow: 1;
+      background-color: rgba(0,0,0,.75);
+    }
+    main {
+      /*background-color: rgba(255,255,255,.5);*/
+      flex-grow: 2;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .list {
+      display: flex;
+      flex-direction: row;
+      /*flex-grow: 1;*/
+      /*height: 100%;*/
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sound {
+      position: relative;
+      margin: 20px;
+      cursor: pointer;
+    }
+    .sound img {
+      background-color: gray;
+      transition: all .3s;
+    }
+    .sound img.playing {
+      opacity: .5;
+      color: green;
+    }
+    .sound::after {
+      display: inline-block;
+      content: '';
+    }
+    .key {
+      position: absolute;
+      color: rgba(255,255,255,.75);
+      text-shadow: 1px 1px 1px black;
+      bottom: 5px;
+      /*top: 0;*/
+      right: 10px;
+      font-size: 48px;
+      line-height: 1;
+      font-family: "Open sans";
+    }
+  </style>
+  <header></header>
+  <main>
+    <div class="container">
+      <div class="list">
+        <div class="sound sound--ape"><img data-key="65" src="./img/ape.png"><span class="key">a</span></div>
+        <div class="sound sound--cat"><img data-key="66" src="./img/cat.png"><span class="key">b</span></div>
+        <div class="sound sound--cow"><img data-key="67" src="./img/cow.png"><span class="key">c</span></div>
+        <div class="sound sound--elephant"><img data-key="68" src="./img/elephant.png"><span class="key">d</span></div>
+        <div class="sound sound--lion"><img data-key="69" src="./img/lion.png"><span class="key">e</span></div>
+        <div class="sound sound--pig"><img data-key="70" src="./img/pig.png"><span class="key">f</span></div>
+        <div class="sound sound--sheep"><img data-key="71" src="./img/sheep.png"><span class="key">g</span></div>
+        <div class="sound sound--zebra"><img data-key="72" src="./img/zebra.png"><span class="key">h</span></div>
+        <div class="sound sound--bowheadwhale"><img data-key="73" src="./img/bowheadwhale.png"><span class="key">i</span></div>
+        <div class="sound sound--dog"><img data-key="74" src="./img/dog.png"><span class="key">j</span></div>
+        <div class="sound sound--horse"><img data-key="75" src="./img/horse.png"><span class="key">k</span></div>
+        <div class="sound sound--moose"><img data-key="76" src="./img/moose.png"><span class="key">l</span></div>
+        <div class="sound sound--raccoon"><img data-key="77" src="./img/raccoon.png"><span class="key">m</span></div>
+        <div class="sound sound--tiger"><img data-key="78" src="./img/tiger.png"><span class="key">n</span></div>
+        <div class="sound sound--duck"><img data-key="79" src="./img/duck.png"><span class="key">o</span></div>
+        <div class="sound sound--humpbackwhale"><img data-key="80" src="./img/humpbackwhale.png"><span class="key">p</span></div>
+        <div class="sound sound--owl"><img data-key="81" src="./img/owl.png"><span class="key">q</span></div>
+        <div class="sound sound--rooster"><img data-key="82" src="./img/rooster.png"><span class="key">r</span></div>
+        <div class="sound sound--turkey"><img data-key="83" src="./img/turkey.png"><span class="key">s</span></div>
+      </div>
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <audio data-key="65" src="./sounds/ape.mp3"></audio>
+  <audio data-key="66" src="./sounds/cat.mp3"></audio>
+  <audio data-key="67" src="./sounds/cow.mp3"></audio>
+  <audio data-key="68" src="./sounds/elephant.mp3"></audio>
+  <audio data-key="69" src="./sounds/lion.mp3"></audio>
+  <audio data-key="70" src="./sounds/pig.mp3"></audio>
+  <audio data-key="71" src="./sounds/sheep.mp3"></audio>
+  <audio data-key="72" src="./sounds/zebra.mp3"></audio>
+  <audio data-key="73" src="./sounds/bowheadwhale.mp3"></audio>
+  <audio data-key="74" src="./sounds/dog.mp3"></audio>
+  <audio data-key="75" src="./sounds/horse.mp3"></audio>
+  <audio data-key="76" src="./sounds/moose.mp3"></audio>
+  <audio data-key="77" src="./sounds/raccoon.mp3"></audio>
+  <audio data-key="78" src="./sounds/tiger.mp3"></audio>
+  <audio data-key="79" src="./sounds/duck.mp3"></audio>
+  <audio data-key="80" src="./sounds/humpbackwhale.mp3"></audio>
+  <audio data-key="81" src="./sounds/owl.mp3"></audio>
+  <audio data-key="82" src="./sounds/rooster.mp3"></audio>
+  <audio data-key="83" src="./sounds/turkey.mp3"></audio>
+
+  <script>
+    function playSound(e){
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const img = document.querySelector(`.sound img[data-key="${e.keyCode}"]`);
+      console.log(audio,e.keyCode);
+      if(!audio) return; //stop the function from running all together
+      audio.currentTime = 0; //rewind to the start
+      audio.play();
+      img.classList.add('playing');
+    }
+
+    function tapImage(){
+      console.log(this,this.dataset.key);
+      const key = this.dataset.key;
+      const audio = document.querySelector(`audio[data-key="${key}"]`);
+      const img = document.querySelector(`.sound img[data-key="${key}"]`);
+
+      if(!audio) return; //stop the function from running all together
+      audio.currentTime = 0; //rewind to the start
+      audio.play();
+      img.classList.add('playing');
+    }
+
+    function removeTransition(e){
+      if(e.propertyName !== 'opacity') return;
+      console.log(e.propertyName,this);
+      this.classList.remove('playing');
+    }
+
+    window.addEventListener('keydown', playSound);
+
+    const sounds = document.querySelectorAll('.sound img');
+    sounds.forEach(sound => sound.addEventListener('transitionend', removeTransition));
+    sounds.forEach(sound => sound.addEventListener('click', tapImage));
+  </script>
+</body>
+</html>
